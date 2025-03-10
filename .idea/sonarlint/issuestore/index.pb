@@ -9,3 +9,7 @@ P
  contracts/quality-assurance.clar,e/3/e38aaf8b4436b5be3ba7aa93cefcd4927c1fe5ed
 T
 $contracts/consumer-verification.clar,9/5/95d874116380ad8cd3e09c3fb49cd296159312a9
+O
+tests/quality-assurance.test.ts,b/c/bc0366f63a2541ed320c13edc49b354da4f8f6cc
+S
+#tests/consumer-verification.test.ts,b/a/badbd160fcaa76a7a2622bb19b5e507280025745

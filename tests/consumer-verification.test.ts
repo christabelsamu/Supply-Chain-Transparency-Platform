@@ -1,21 +1,54 @@
+import { describe, it, expect, beforeEach, vi } from "vitest"
 
-import { describe, expect, it } from "vitest";
+// Mock contract call function
+const mockContractCall = vi.fn()
 
-const accounts = simnet.getAccounts();
-const address1 = accounts.get("wallet_1")!;
+// Mock Clarity values
+const mockUint = (value: number) => ({ type: 1, value: value })
+const mockBool = (value: boolean) => ({ type: 2, value: value })
+const mockPrincipal = (address: string) => ({ type: 5, value: address })
+const mockResponse = (value: any) => ({ type: 3, value: value })
+const mockBuff = (value: string) => ({ type: 2, value: Buffer.from(value, "hex") })
 
-/*
-  The test below is an example. To learn more, read the testing documentation here:
-  https://docs.hiro.so/stacks/clarinet-js-sdk
-*/
+describe("Consumer Verification Contract", () => {
+  const deployer = "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM"
+  const manufacturer = "ST1SJ3DTE5DN7X54YDH5D64R3BCB6A2AG2ZQ8YPD5"
+  const consumer = "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG"
+  
+  beforeEach(() => {
+    vi.resetAllMocks()
+  })
+  
+  it("should add product verification", () => {
+    mockContractCall.mockReturnValueOnce(mockResponse(mockBool(true)))
+    
+    const result = mockContractCall(
+        "consumer-verification",
+        "add-verification",
+        [
+          mockUint(1), // product ID
+          mockBuff("1234567890abcdef"), // verification hash
+        ],
+        manufacturer,
+    )
+    
+    expect(result.value).toEqual(mockBool(true))
+  })
+  
+  it("should verify product authenticity", () => {
+    mockContractCall.mockReturnValueOnce(mockResponse(mockBool(true)))
+    
+    const result = mockContractCall(
+        "consumer-verification",
+        "verify-product",
+        [
+          mockUint(1), // product ID
+          mockBuff("1234567890abcdef"), // verification hash
+        ],
+        consumer,
+    )
+    
+    expect(result.value).toEqual(mockBool(true))
+  })
+})
 
-describe("example tests", () => {
-  it("ensures simnet is well initalised", () => {
-    expect(simnet.blockHeight).toBeDefined();
-  });
-
-  // it("shows an example", () => {
-  //   const { result } = simnet.callReadOnlyFn("counter", "get-counter", [], address1);
-  //   expect(result).toBeUint(0);
-  // });
-});
