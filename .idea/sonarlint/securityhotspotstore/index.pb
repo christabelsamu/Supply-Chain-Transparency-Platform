@@ -5,3 +5,5 @@ S
 #contracts/product-registration.clar,8/6/8657cae640c8ecd6bb94fb5ec8a3fe40377012de
 R
 "tests/product-registration.test.ts,d/0/d013af03e56d1e1dfff08e30a2442b43c3a73245
+P
+ contracts/quality-assurance.clar,e/3/e38aaf8b4436b5be3ba7aa93cefcd4927c1fe5ed
